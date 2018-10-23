@@ -51,7 +51,7 @@ def main():
 
         if repo_atual != False:
             if comando == 7:
-                git_status = git_controle.retorna_strenger_area()
+                git_status = git_controle.retorna_stage_area()
                 monitorados = git_status
                 for i in range(len(monitorados)):
                     comentario = input("mensagem -> ")

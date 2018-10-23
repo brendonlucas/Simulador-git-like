@@ -8,7 +8,7 @@ class ControleGit:
         self.repositorio = RepositorioLocal()
         self.arquivo = Arquivo()
         self.repositorio_remoto = RepositorioRemoto()
-        self.strenger_area = []
+        self.stage_area = []
         self.commits = []
         self.monitorado = []
         self.nao_monitorado = []
@@ -44,24 +44,24 @@ class ControleGit:
         self.arquivo.editar(nome_arquivo, repo_atual, texto, tipo)
 
     def add(self, repo_atual, nome_arquivo):
-        self.repositorio.add(repo_atual, nome_arquivo, self.strenger_area)
+        self.repositorio.add(repo_atual, nome_arquivo, self.stage_area)
 
     def commit(self, arquivo, comentario):
         self.repositorio.commit(arquivo, comentario, self.commits)
 
-    def retorna_strenger_area(self):
-        return self.strenger_area
+    def retorna_stage_area(self):
+        return self.stage_area
 
     def push(self):
-        for i in range(len(self.strenger_area)):
-            self.repositorio_remoto.recebe_push(self.strenger_area[i], self.repo_remoto)
-        self.strenger_area = []
+        for i in range(len(self.stage_area)):
+            self.repositorio_remoto.recebe_push(self.stage_area[i], self.repo_remoto)
+        self.stage_area = []
 
     def mostar(self):
         print(self.repo_remoto)
 
     def poll(self):
-        self.repositorio_remoto.poll(self.repo_remoto, self.repositorios_local, self.strenger_area)
+        self.repositorio_remoto.poll(self.repo_remoto, self.repositorios_local, self.stage_area)
 
     def git_log(self):
         return self.commits

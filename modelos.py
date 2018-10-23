@@ -50,7 +50,7 @@ class RepositorioLocal:
         arquivo[3] = True
         area_commits.append([arquivo, comentario])
 
-    def push(self, strenger_area):
+    def push(self, stage_area):
         pass
 
 
@@ -72,7 +72,7 @@ class RepositorioRemoto:
     def mostra_repo_remoto(self):
         print(self.repo_remoto)
 
-    def poll(self, repo_remoto, repo_local, strenger_area):
+    def poll(self, repo_remoto, repo_local, stage_area):
         self.repo_remoto = repo_remoto
         for i in range(len(repo_local)):
             diretorio = repo_local[i]
@@ -82,4 +82,4 @@ class RepositorioRemoto:
                     if arquivo_atual[0] == repo_remoto[k][0]:
                         arquivo_atual = repo_remoto[k]
                         arquivo_atual[3] = False
-                        strenger_area.append(arquivo_atual)
+                        stage_area.append(arquivo_atual)
