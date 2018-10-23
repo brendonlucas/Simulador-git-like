@@ -9,14 +9,12 @@ class ControleGit:
         self.arquivo = Arquivo()
         self.repositorio_remoto = RepositorioRemoto()
         self.strenger_area = []
-        self.commits =[]
+        self.commits = []
+        self.monitorado = []
+        self.nao_monitorado = []
 
     def criar_repositorio(self, nome):
         self.repositorio.criar_repositorio(nome, self.repositorios_local)
-
-    def mostar_repositorios(self):
-        for i in range(len(self.repositorios_local)):
-            print(self.repositorios_local[i])
 
     def seleciona_repositorio(self, repo_solicitado):
         for i in range(len(self.repositorios_local)):
@@ -27,39 +25,43 @@ class ControleGit:
     def criar_arquivo(self, nome_arquivo, repo_atual):
         criar = self.arquivo.criar_arquivo(repo_atual, nome_arquivo)
         if criar:
-        	return True
+            return True
+
     def git_status(self, repo_atual):
-    	self.monitorado =[]
-    	self.nao_monitorado =[]
-    	print(self.strenger_area)
-    	for i in range(1, len(repo_atual)):
-    		if repo_atual[i][2] == True:
-    			self.monitorado.append([repo_atual[i][0],repo_atual[i][3]])
-    		else:
-    			self.nao_monitorado.append([repo_atual[i][0],repo_atual[i][3]])
-    	return self.monitorado, self.nao_monitorado
+        self.monitorado = []
+        self.nao_monitorado = []
+        for i in range(1, len(repo_atual)):
+            if repo_atual[i][2] == True:
+                self.monitorado.append([repo_atual[i][0], repo_atual[i][3]])
+            else:
+                self.nao_monitorado.append([repo_atual[i][0], repo_atual[i][3]])
+        return self.monitorado, self.nao_monitorado
+
     def remover_arquivo(self, nome_arquivo, repo_atual):
-    	self.arquivo.remover(nome_arquivo, repo_atual)
-    def editar_arquivo(self, nome_arquivo, repo_atual, texto,tipo):
-    	self.arquivo.editar(nome_arquivo, repo_atual, texto,tipo)
-    def add(self, repo_atual,nome_arquivo):
-    	self.repositorio.add(repo_atual, nome_arquivo, self.strenger_area)
-    
+        self.arquivo.remover(nome_arquivo, repo_atual)
+
+    def editar_arquivo(self, nome_arquivo, repo_atual, texto, tipo):
+        self.arquivo.editar(nome_arquivo, repo_atual, texto, tipo)
+
+    def add(self, repo_atual, nome_arquivo):
+        self.repositorio.add(repo_atual, nome_arquivo, self.strenger_area)
+
     def commit(self, arquivo, comentario):
-    	self.repositorio.commit(arquivo,comentario,self.commits)
-    
+        self.repositorio.commit(arquivo, comentario, self.commits)
+
     def retorna_strenger_area(self):
-    	return self.strenger_area
-    
+        return self.strenger_area
+
     def push(self):
-    	print(self.strenger_area)
-    	for i in range(len(self.strenger_area)):
-    		self.repositorio_remoto.recebe_push(self.strenger_area[i], self.repo_remoto)
-    	self.strenger_area = []
-    
+        for i in range(len(self.strenger_area)):
+            self.repositorio_remoto.recebe_push(self.strenger_area[i], self.repo_remoto)
+        self.strenger_area = []
+
     def mostar(self):
-    	print(self.repo_remoto)
-    	
+        print(self.repo_remoto)
+
     def poll(self):
-    	self.repositorio_remoto.poll(self.repo_remoto, self.repositorios_local,self.strenger_area)
-    	
+        self.repositorio_remoto.poll(self.repo_remoto, self.repositorios_local, self.strenger_area)
+
+    def git_log(self):
+        return self.commits

@@ -1,7 +1,8 @@
 class Arquivo:
     def __init__(self):
-        self.nome = ""
-		self.comentario =""
+        self.nome_arquivo = "nome"
+        self.comentario = "comentario"
+
     def criar_arquivo(self, repo_atual, nome_arquivo):
         self.nome_arquivo = nome_arquivo
         repo_atual.append([nome_arquivo, "", False, False])
@@ -16,6 +17,7 @@ class Arquivo:
         return False
 
     def editar(self, nome_arquivo, repo_atual, texto, tipo):
+        self.nome_arquivo = nome_arquivo
         if tipo == 1:
             for i in range(1, len(repo_atual)):
                 if repo_atual[i][0] == nome_arquivo:
@@ -29,10 +31,12 @@ class Arquivo:
 class RepositorioLocal:
     def __init__(self):
         self.nome = "nome"
+        self.comentario = "comentario"
+        self.repositorio_local = []
 
     def criar_repositorio(self, nome, repositorio_local):
-        self.nome = nome
-        repositorio_local.append([self.nome])
+        self.repositorio_local = repositorio_local
+        self.repositorio_local.append([nome])
 
     def add(self, repo_atual, nome_arquivo, area_commit):
         self.nome = "i"
@@ -52,7 +56,7 @@ class RepositorioLocal:
 
 class RepositorioRemoto:
     def __init__(self):
-        self.repositorio_remoto = []
+        self.repo_remoto = []
 
     def recebe_push(self, arquivo, repo_remoto):
         self.repo_remoto = repo_remoto
@@ -63,16 +67,17 @@ class RepositorioRemoto:
         self.repo_remoto.append(arquivo)
 
     def manda(self):
-        return self.repositorio_remoto
+        return self.repo_remoto
 
     def mostra_repo_remoto(self):
-        print(self.repositorio_remoto)
+        print(self.repo_remoto)
 
     def poll(self, repo_remoto, repo_local, strenger_area):
+        self.repo_remoto = repo_remoto
         for i in range(len(repo_local)):
-            dire = repo_local[i]
-            for j in range(len(dire)):
-                arquivo_atual = dire[j]
+            diretorio = repo_local[i]
+            for j in range(len(diretorio)):
+                arquivo_atual = diretorio[j]
                 for k in range(len(repo_remoto)):
                     if arquivo_atual[0] == repo_remoto[k][0]:
                         arquivo_atual = repo_remoto[k]

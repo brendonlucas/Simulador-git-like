@@ -17,31 +17,38 @@ def main():
         8 - Enviar todos os commits: \n\
         9 - Carregar arquivos do repositorio remoto: \n\
         10 - Git status \n\
+        11 - Git log \n\
         ->"
+
         comando = int(input(menu))
 
         if comando == 1:
             nome_repositorio = input("Digite o nome do repositorio que deseja criar:")
             git_controle.criar_repositorio(nome_repositorio)
+
         if comando == 2:
             repo_solicitado = input("Escolha um repositorio: -> ")
             repo_atual = git_controle.seleciona_repositorio(repo_solicitado)
-            print(repo_atual)
         if repo_atual != False:
+
             if comando == 3:
                 nome_arquivo = input("Digite o nome do arquivo: -> ")
                 git_controle.criar_arquivo(nome_arquivo, repo_atual)
+
         if comando == 4:
             nome_arquivo = input("Digite o arquivo para apagar: -> ")
             git_controle.remover_arquivo(nome_arquivo, repo_atual)
+
         if comando == 5:
             tipo = int(input("Deseja sobrescrever ou apenas adiconar (1- sobrescrever/ 2 - adicionar -> )"))
             nome_arquivo = input("Digite o nome do arquivo -> ")
             texto = input()
             git_controle.editar_arquivo(nome_arquivo, repo_atual, texto, tipo)
+
         if comando == 6:
             nome = input("Digite o nome do arquivo ->")
             git_controle.add(repo_atual, nome)
+
         if repo_atual != False:
             if comando == 7:
                 git_status = git_controle.retorna_strenger_area()
@@ -49,15 +56,17 @@ def main():
                 for i in range(len(monitorados)):
                     comentario = input("mensagem -> ")
                     git_controle.commit(monitorados[i], comentario)
+
         if comando == 8:
             git_controle.push()
+
         if comando == 9:
             git_controle.poll()
+
         if comando == 10:
             git_status = git_controle.git_status(repo_atual)
             monitorados = git_status[0]
             nao = git_status[1]
-            print(monitorados, nao)
             print("Monitorados")
             for i in range(len(monitorados)):
                 if monitorados[i][1] == False:
@@ -66,7 +75,9 @@ def main():
             for j in range(len(nao)):
                 print(nao[j][0])
         if comando == 11:
-            git_controle.mostar_repositorios()
+            log = git_controle.git_log()
+            for i in range(len(log)):
+                print(log[i][0][0], "->", log[i][1])
 
 
 if __name__ == '__main__':
