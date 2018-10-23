@@ -57,11 +57,8 @@ class ControleGit:
             self.repositorio_remoto.recebe_push(self.stage_area[i], self.repo_remoto)
         self.stage_area = []
 
-    def mostar(self):
-        print(self.repo_remoto)
-
-    def poll(self):
-        self.repositorio_remoto.poll(self.repo_remoto, self.repositorios_local, self.stage_area)
+    def pull(self):
+        self.repositorio_remoto.pull(self.repo_remoto, self.repositorios_local, self.stage_area)
 
     def git_log(self):
         return self.commits

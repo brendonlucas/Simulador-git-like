@@ -22,6 +22,7 @@ class Arquivo:
             for i in range(1, len(repo_atual)):
                 if repo_atual[i][0] == nome_arquivo:
                     repo_atual[i][1] = texto
+
         if tipo == 2:
             for i in range(1, len(repo_atual)):
                 if repo_atual[i][0] == nome_arquivo:
@@ -50,9 +51,6 @@ class RepositorioLocal:
         arquivo[3] = True
         area_commits.append([arquivo, comentario])
 
-    def push(self, stage_area):
-        pass
-
 
 class RepositorioRemoto:
     def __init__(self):
@@ -69,10 +67,7 @@ class RepositorioRemoto:
     def manda(self):
         return self.repo_remoto
 
-    def mostra_repo_remoto(self):
-        print(self.repo_remoto)
-
-    def poll(self, repo_remoto, repo_local, stage_area):
+    def pull(self, repo_remoto, repo_local, stage_area):
         self.repo_remoto = repo_remoto
         for i in range(len(repo_local)):
             diretorio = repo_local[i]

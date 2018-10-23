@@ -30,7 +30,6 @@ def main():
             repo_solicitado = input("Escolha um repositorio: -> ")
             repo_atual = git_controle.seleciona_repositorio(repo_solicitado)
         if repo_atual != False:
-
             if comando == 3:
                 nome_arquivo = input("Digite o nome do arquivo: -> ")
                 git_controle.criar_arquivo(nome_arquivo, repo_atual)
@@ -61,19 +60,20 @@ def main():
             git_controle.push()
 
         if comando == 9:
-            git_controle.poll()
+            git_controle.pull()
 
         if comando == 10:
-            git_status = git_controle.git_status(repo_atual)
-            monitorados = git_status[0]
-            nao = git_status[1]
-            print("Monitorados")
-            for i in range(len(monitorados)):
-                if monitorados[i][1] == False:
-                    print(monitorados[i][0])
-            print(" \nNao monitorados:")
-            for j in range(len(nao)):
-                print(nao[j][0])
+            if repo_atual != False:
+                git_status = git_controle.git_status(repo_atual)
+                monitorados = git_status[0]
+                nao = git_status[1]
+                print("Monitorados")
+                for i in range(len(monitorados)):
+                    if monitorados[i][1] == False:
+                        print(monitorados[i][0])
+                print(" \nNao monitorados:")
+                for j in range(len(nao)):
+                    print(nao[j][0])
         if comando == 11:
             log = git_controle.git_log()
             for i in range(len(log)):
